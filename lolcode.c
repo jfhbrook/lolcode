@@ -791,6 +791,40 @@ evaluate_expr(struct parser *PARSER, struct value *STATE, struct list *BREAKS,
         return func_foldl(values, func_powrof);
     }
 
+    /* LOLG OF */
+    if (parser_cmp(PARSER, "LOLG")) {
+        struct list *args = NULL;
+        struct list *values = NULL;
+        int types[1] = { NUMBAR };
+        if (!parser_cmp(PARSER, "OF")) {
+            error(PARSER, "Expected `OF' after `LOLG'");
+            return NULL;
+        }
+        /* Retrieve one argument */
+        args = args_get(PARSER, STATE, BREAKS, ACCESS, 2);
+        struct value *result = NULL;
+
+        /* Check for correct number of arguments */
+        if (list_size(args) != 1) {
+            error(PARSER, "Wrong number of arguments to LOLG");
+            list_delete(args);
+            return NULL;
+        }
+        values = args_convert(args, types, 1);
+        if (!values) {
+            error(PARSER, "Invalid argument to LOLG");
+            return NULL;
+        }
+        /* Apply the LN operation */
+        value = (struct value *)list_head(values);
+        assert(value);
+        if (value->type == NUMBAR) {
+            return value_create_numbar((float)log(value_get_numbar(value))); 
+        }
+        else return NULL;
+    }
+
+
     /* MOD OF */
     if (parser_cmp(PARSER, "MOD")) {
         struct list *args = NULL;

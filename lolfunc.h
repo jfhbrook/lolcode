@@ -182,6 +182,7 @@ func_modof(struct value *LEFT, struct value *RIGHT)
     return value_create_numbr(value_get_numbr(LEFT) % value_get_numbr(RIGHT));
 }
 
+
     struct value *
 func_biggrof(struct value *LEFT, struct value *RIGHT)
 {
