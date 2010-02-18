@@ -156,16 +156,16 @@ func_powrof(struct value *LEFT, struct value *RIGHT)
     if (RIGHT->type != NUMBR && RIGHT->type != NUMBAR) return NULL;
     if (LEFT->type == NUMBR) {
         if (RIGHT->type == NUMBR)
-            return value_create_numbr( pow(value_get_numbr(LEFT),value_get_numbr(RIGHT)) );
+            return value_create_numbr((int)pow(value_get_numbr(LEFT),value_get_numbr(RIGHT)));
         else if (RIGHT->type == NUMBAR)
-            return value_create_numbar( pow(value_get_numbr(LEFT),value_get_numbr(RIGHT)) );
+            return value_create_numbar((float)pow(value_get_numbr(LEFT),value_get_numbr(RIGHT)));
         else return NULL;
     }
     else if (LEFT->type == NUMBAR) {
         if (RIGHT->type == NUMBR)
-            return value_create_numbar( pow(value_get_numbr(LEFT),value_get_numbr(RIGHT)) );
+            return value_create_numbar((float)pow(value_get_numbr(LEFT),value_get_numbr(RIGHT)));
         else if (RIGHT->type == NUMBAR)
-            return value_create_numbar( pow(value_get_numbr(LEFT),value_get_numbr(RIGHT)) );
+            return value_create_numbar((float)pow(value_get_numbr(LEFT),value_get_numbr(RIGHT)));
         else return NULL;
     }
     return NULL;

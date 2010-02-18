@@ -790,7 +790,6 @@ evaluate_expr(struct parser *PARSER, struct value *STATE, struct list *BREAKS,
         return func_foldl(values, func_powrof);
     }
 
-
     /* MOD OF */
     if (parser_cmp(PARSER, "MOD")) {
         struct list *args = NULL;
