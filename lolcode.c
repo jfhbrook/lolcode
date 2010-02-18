@@ -597,19 +597,20 @@ evaluate_expr(struct parser *PARSER, struct value *STATE, struct list *BREAKS,
     assert(STATE);
     assert(BREAKS);
 
-    /* CAN HAS STDIO? */
+    /* CAN HAS STDIO? or, CAN HAS MATH?*/
     if (parser_cmp(PARSER, "CAN")) {
         if (!parser_cmp(PARSER, "HAS")) {
             error(PARSER, "Expected `HAS' after `CAN'");
             return NULL;
         }
-        if (!parser_cmp(PARSER, "STDIO?")) {
-            error(PARSER, "Expected `STDIO?' after `CAN HAS'");
+        if (!parser_cmp(PARSER, "STDIO?") && !parser_cmp(PARSER, "MATH?")) {
+            error(PARSER, "Expected `STDIO?' or 'MATH?' after `CAN HAS'");
             return NULL;
         }
         /* Do nothing */
         return value_create_noob();
     }
+
 
     /* HAI */
     if (parser_cmp(PARSER, "HAI")) {
@@ -773,18 +774,18 @@ evaluate_expr(struct parser *PARSER, struct value *STATE, struct list *BREAKS,
         struct list *values = NULL;
         int types[2] = { NUMBR, NUMBAR };
         if (!parser_cmp(PARSER, "OF")) {
-            error(PARSER, "Expected `OF' after `POWR'");
+            error(PARSER, "Expected `OF' after `PRODUKT'");
             return NULL;
         }
         args = args_get(PARSER, STATE, BREAKS, ACCESS, 2);
         if (list_size(args) != 2) {
-            error(PARSER, "Wrong number of arguments to POWR OF");
+            error(PARSER, "Wrong number of arguments to PRODUKT OF");
             list_delete(args);
             return NULL;
         }
         values = args_convert(args, types, 2);
         if (!values) {
-            error(PARSER, "Invalid argument to POWR OF");
+            error(PARSER, "Invalid argument to PRODUKT OF");
             return NULL;
         }
         return func_foldl(values, func_powrof);
