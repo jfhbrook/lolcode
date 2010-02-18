@@ -52,6 +52,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <assert.h>
+#include <math.h>
 #include "hash.h"
 #include "list.h"
 #include "state.h"
@@ -765,6 +766,30 @@ evaluate_expr(struct parser *PARSER, struct value *STATE, struct list *BREAKS,
         }
         return func_foldl(values, func_quoshuntof);
     }
+
+    /* POWR OF */
+    if (parser_cmp(PARSER, "POWR")) {
+        struct list *args = NULL;
+        struct list *values = NULL;
+        int types[2] = { NUMBR, NUMBAR };
+        if (!parser_cmp(PARSER, "OF")) {
+            error(PARSER, "Expected `OF' after `POWR'");
+            return NULL;
+        }
+        args = args_get(PARSER, STATE, BREAKS, ACCESS, 2);
+        if (list_size(args) != 2) {
+            error(PARSER, "Wrong number of arguments to POWR OF");
+            list_delete(args);
+            return NULL;
+        }
+        values = args_convert(args, types, 2);
+        if (!values) {
+            error(PARSER, "Invalid argument to POWR OF");
+            return NULL;
+        }
+        return func_foldl(values, func_powrof);
+    }
+
 
     /* MOD OF */
     if (parser_cmp(PARSER, "MOD")) {

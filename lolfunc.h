@@ -37,6 +37,7 @@
 #include <assert.h>
 #include "list.h"
 #include "loltypes.h"
+#include <math.h>
 
 /* LOLCODE standard functions */
 
@@ -145,6 +146,31 @@ func_quoshuntof(struct value *LEFT, struct value *RIGHT)
     }
     return NULL;
 }
+
+    struct value *
+func_powrof(struct value *LEFT, struct value *RIGHT)
+{
+    assert(LEFT);
+    assert(RIGHT);
+    if (LEFT->type != NUMBR && LEFT->type != NUMBAR) return NULL;
+    if (RIGHT->type != NUMBR && RIGHT->type != NUMBAR) return NULL;
+    if (LEFT->type == NUMBR) {
+        if (RIGHT->type == NUMBR)
+            return value_create_numbr( pow(value_get_numbr(LEFT),value_get_numbr(RIGHT)) );
+        else if (RIGHT->type == NUMBAR)
+            return value_create_numbar( pow(value_get_numbr(LEFT),value_get_numbr(RIGHT)) );
+        else return NULL;
+    }
+    else if (LEFT->type == NUMBAR) {
+        if (RIGHT->type == NUMBR)
+            return value_create_numbar( pow(value_get_numbr(LEFT),value_get_numbr(RIGHT)) );
+        else if (RIGHT->type == NUMBAR)
+            return value_create_numbar( pow(value_get_numbr(LEFT),value_get_numbr(RIGHT)) );
+        else return NULL;
+    }
+    return NULL;
+}
+
 
     struct value *
 func_modof(struct value *LEFT, struct value *RIGHT)
