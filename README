@@ -1,4 +1,4 @@
-                                    lolcode
+                                    lolcode with math extensions
                  An efficient LOLCODE interpreter written in C.
 
 MAINTAINER
@@ -11,6 +11,17 @@ Y HELO THAR!!!1!
     in the LOLCODE Version 1.2 language specification and some of the Version
     1.3 proposals.  For more information, see < http://lolcode.com/specs/1.2 >
     and < http://lolcode.com/proposals/1.3/1.3 > .
+
+    What's more, this particular fork of Justin Meza's lolcode interpreter supports
+    a few functions from math.h! The list includes:
+
+    log() --> LOLG
+    pow() --> POWR
+    sin() --> SIEN
+    cos() --> COSIEN
+    tan() --> TANGINT
+
+    It'd be nice to add pi, e and the inverse trig functions, but it hasn't happened yet.
 
     To get started, just run ``make'' in this directory.  This will generate a
     binary file called ``lolcode''.

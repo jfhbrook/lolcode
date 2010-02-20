@@ -604,7 +604,7 @@ evaluate_expr(struct parser *PARSER, struct value *STATE, struct list *BREAKS,
             return NULL;
         }
         if (!parser_cmp(PARSER, "STDIO?") && !parser_cmp(PARSER, "MATH?")) {
-            error(PARSER, "Expected `STDIO?' or 'MATH?' after `CAN HAS'");
+            error(PARSER, "Expected `STDIO?' or `MATH?' after `CAN HAS'");
             return NULL;
         }
         /* Do nothing */
@@ -774,18 +774,18 @@ evaluate_expr(struct parser *PARSER, struct value *STATE, struct list *BREAKS,
         struct list *values = NULL;
         int types[2] = { NUMBR, NUMBAR };
         if (!parser_cmp(PARSER, "OF")) {
-            error(PARSER, "Expected `OF' after `PRODUKT'");
+            error(PARSER, "Expected `OF' after `POWR'");
             return NULL;
         }
         args = args_get(PARSER, STATE, BREAKS, ACCESS, 2);
         if (list_size(args) != 2) {
-            error(PARSER, "Wrong number of arguments to PRODUKT OF");
+            error(PARSER, "Wrong number of arguments to POWR OF");
             list_delete(args);
             return NULL;
         }
         values = args_convert(args, types, 2);
         if (!values) {
-            error(PARSER, "Invalid argument to PRODUKT OF");
+            error(PARSER, "Invalid argument to POWR OF");
             return NULL;
         }
         return func_foldl(values, func_powrof);
@@ -820,6 +820,105 @@ evaluate_expr(struct parser *PARSER, struct value *STATE, struct list *BREAKS,
         assert(value);
         if (value->type == NUMBAR) {
             return value_create_numbar((float)log(value_get_numbar(value))); 
+        }
+        else return NULL;
+    }
+
+    /* SIEN OF */
+    if (parser_cmp(PARSER, "SIEN")) {
+        struct list *args = NULL;
+        struct list *values = NULL;
+        int types[1] = { NUMBAR };
+        if (!parser_cmp(PARSER, "OF")) {
+            error(PARSER, "Expected `OF' after `SIEN'");
+            return NULL;
+        }
+        /* Retrieve one argument */
+        args = args_get(PARSER, STATE, BREAKS, ACCESS, 2);
+        struct value *result = NULL;
+
+        /* Check for correct number of arguments */
+        if (list_size(args) != 1) {
+            error(PARSER, "Wrong number of arguments to SIEN");
+            list_delete(args);
+            return NULL;
+        }
+        values = args_convert(args, types, 1);
+        if (!values) {
+            error(PARSER, "Invalid argument to SIEN");
+            return NULL;
+        }
+        /* Apply the operation */
+        value = (struct value *)list_head(values);
+        assert(value);
+        if (value->type == NUMBAR) {
+            return value_create_numbar((float)sin(value_get_numbar(value))); 
+        }
+        else return NULL;
+    }
+
+    /* COSIEN OF */
+    if (parser_cmp(PARSER, "COSIEN")) {
+        struct list *args = NULL;
+        struct list *values = NULL;
+        int types[1] = { NUMBAR };
+        if (!parser_cmp(PARSER, "OF")) {
+            error(PARSER, "Expected `OF' after `COSIEN'");
+            return NULL;
+        }
+        /* Retrieve one argument */
+        args = args_get(PARSER, STATE, BREAKS, ACCESS, 2);
+        struct value *result = NULL;
+
+        /* Check for correct number of arguments */
+        if (list_size(args) != 1) {
+            error(PARSER, "Wrong number of arguments to COSIEN");
+            list_delete(args);
+            return NULL;
+        }
+        values = args_convert(args, types, 1);
+        if (!values) {
+            error(PARSER, "Invalid argument to COSIEN");
+            return NULL;
+        }
+        /* Apply the operation */
+        value = (struct value *)list_head(values);
+        assert(value);
+        if (value->type == NUMBAR) {
+            return value_create_numbar((float)cos(value_get_numbar(value))); 
+        }
+        else return NULL;
+    }
+
+    /* TANGINT OF */
+    if (parser_cmp(PARSER, "TANGINT")) {
+        struct list *args = NULL;
+        struct list *values = NULL;
+        int types[1] = { NUMBAR };
+        if (!parser_cmp(PARSER, "OF")) {
+            error(PARSER, "Expected `OF' after `TANGINT'");
+            return NULL;
+        }
+        /* Retrieve one argument */
+        args = args_get(PARSER, STATE, BREAKS, ACCESS, 2);
+        struct value *result = NULL;
+
+        /* Check for correct number of arguments */
+        if (list_size(args) != 1) {
+            error(PARSER, "Wrong number of arguments to TANGINT");
+            list_delete(args);
+            return NULL;
+        }
+        values = args_convert(args, types, 1);
+        if (!values) {
+            error(PARSER, "Invalid argument to TANGINT");
+            return NULL;
+        }
+        /* Apply the operation */
+        value = (struct value *)list_head(values);
+        assert(value);
+        if (value->type == NUMBAR) {
+            return value_create_numbar((float)tan(value_get_numbar(value))); 
         }
         else return NULL;
     }
