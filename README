@@ -1,9 +1,10 @@
-                                    lolcode with math extensions
+                          lolcode with math extensions
                  An efficient LOLCODE interpreter written in C.
 
 MAINTAINER
 
-    Justin J. Meza < justin.meza@gmail.com >
+    Original Dude: Justin J. Meza < justin.meza@gmail.com >
+    Math-Addin' Dude: Joshua Holbrook < josh.holbrook@gmail.com >
 
 Y HELO THAR!!!1!
 
